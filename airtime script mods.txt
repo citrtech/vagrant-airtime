@@ -1,0 +1,48 @@
+# AIRTIME MODS TO PLAY RANDOM WHEN NOTHING SCHEDULED
+# FILE IS /usr/lib/airtime/pypo/bin/scripts/ls_script.liq
+
+
+# Script 1
+
+#default = amplify(id="silence_src", 0.00001, noise())
+
+
+#^^^^^^Start Of Modification^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+# Music
+
+myplaylist     = playlist(mode="random",reload=300,"/srv/backup/music")
+
+
+# If something goes wrong, we'll play this
+startup = playlist("/srv/backup/startup")
+
+# If something goes wrong, we'll play this
+security = single("/srv/backup/drops/station.mp3")
+
+#***********Start building the feed with music******************************************
+# Start building the feed with music by assigning to the same clock (variables)
+
+mymusicbackup = mksafe(myplaylist)
+mystartup = startup
+
+#**************Feed with music*************************************************************
+
+# And now to play the back up music when something goes wrong
+#This is the simplest way of having 1 song from your cart play for every 4 music
+#just subsitute jingles for mystartup and the numbers you want like ratio 1:10
+
+playmymusicbackup=rotate(weights = [1,4],[mystartup,mymusicbackup])
+
+
+
+#*************Fallback to default******************************************************
+
+
+#And finally the security
+default = fallback(track_sensitive = false,[playmymusicbackup,security])
+
+
+
+
+#^^^^^^^^End Of Modification^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
