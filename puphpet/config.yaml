@@ -3,7 +3,7 @@ vagrantfile-local:
     vm:
         box: puphpet/ubuntu1204-x64
         box_url: puphpet/ubuntu1204-x64
-        hostname: ''
+        hostname: 'airtime.local'
         memory: '512'
         cpus: '1'
         chosen_provider: virtualbox
@@ -47,6 +47,55 @@ vagrantfile-local:
                     exclude:
                         - .vagrant/
                     auto: 'false'
+            airtimeconfig:
+                source: ./synced-folders/etc/airtime
+                target: /etc/airtime
+                sync_type: default
+                rsync:
+                    args:
+                        - '--verbose'
+                        - '--archive'
+                        - '-z'
+                    exclude:
+                        - .vagrant/
+                    auto: 'false'
+            audiostorage:
+                source: ./synced-folders/srv/airtime/stor
+                target: /srv/airtime/stor
+                sync_type: default
+                rsync:
+                    args:
+                        - '--verbose'
+                        - '--archive'
+                        - '-z'
+                    exclude:
+                        - .vagrant/
+                    auto: 'false'
+            airtimelogs:
+                source: ./synced-folders/var/log/airtime
+                target: /var/log/airtime
+                sync_type: default
+                rsync:
+                    args:
+                        - '--verbose'
+                        - '--archive'
+                        - '-z'
+                    exclude:
+                        - .vagrant/
+                    auto: 'false'
+            webinterface:
+                source: ./synced-folders/usr/share/airtime
+                target: /usr/share/airtime
+                sync_type: default
+                rsync:
+                    args:
+                        - '--verbose'
+                        - '--archive'
+                        - '-z'
+                    exclude:
+                        - .vagrant/
+                    auto: 'false'
+
         usable_port_range:
             start: 10200
             stop: 10500
@@ -144,7 +193,7 @@ php:
         display_errors: On
         error_reporting: '-1'
         session.save_path: /var/lib/php/session
-    timezone: America/Chicago
+    timezone: America/Vancouver
     mod_php: 0
 hhvm:
     install: '0'
