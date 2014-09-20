@@ -165,7 +165,7 @@ nginx:
             ssl_cert: ''
             ssl_key: ''
 php:
-    install: '0'
+    install: '1'
     version: '55'
     composer: '1'
     composer_home: ''
