@@ -35,18 +35,6 @@ vagrantfile-local:
                     - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
                     - '--parser future'
         synced_folder:
-            XzdsXWyUA3XE:
-                source: ./www
-                target: /var/www
-                sync_type: default
-                rsync:
-                    args:
-                        - '--verbose'
-                        - '--archive'
-                        - '-z'
-                    exclude:
-                        - .vagrant/
-                    auto: 'false'
             airtimeconfig:
                 source: ./synced-folders/etc/airtime
                 target: /etc/airtime
@@ -125,7 +113,7 @@ apache:
     settings:
         user: www-data
         group: www-data
-        default_vhost: true
+        default_vhost: false
         manage_user: false
         manage_group: false
         sendfile: 0
@@ -133,11 +121,11 @@ apache:
         - rewrite
     vhosts:
         KEyGzODc6DJy:
-            servername: airtime.local
+            servername: nothing.dev
             serveraliases:
-                - airtime.local
+                - nothing.dev
             docroot: /var/www/web_root
-            port: '80'
+            port: '81'
             setenv:
                 - 'APP_ENV dev'
             override:
@@ -177,7 +165,7 @@ nginx:
             ssl_cert: ''
             ssl_key: ''
 php:
-    install: '1'
+    install: '0'
     version: '55'
     composer: '1'
     composer_home: ''
@@ -208,7 +196,7 @@ hhvm:
         error_reporting: '-1'
     timezone: null
 xdebug:
-    install: '1'
+    install: '0'
     settings:
         xdebug.default_enable: '1'
         xdebug.remote_autostart: '0'
@@ -230,7 +218,7 @@ nodejs:
     install: '0'
     npm_packages: {  }
 python:
-    install: '1'
+    install: '0'
     packages: {  }
     versions:
         Ns23JPSmLIuk:
